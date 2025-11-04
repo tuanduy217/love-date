@@ -1,21 +1,25 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 interface NavigationProps {
-  currentSection: string
-  setCurrentSection: (section: string) => void
+  currentSection: string;
+  setCurrentSection: (section: string) => void;
 }
 
-export default function Navigation({ currentSection, setCurrentSection }: NavigationProps) {
+export default function Navigation({
+  currentSection,
+  setCurrentSection,
+}: NavigationProps) {
   const sections = [
     { id: "landing", label: "💕 Home" },
     { id: "journey", label: "✨ Our Journey" },
     { id: "gallery", label: "📸 Gallery" },
-    { id: "countdown", label: "⏰ Countdown" },
-    { id: "gift", label: "🎁 Surprise" },
+    { id: "countdown", label: "⏰ Love Days" },
+    { id: "gift", label: "💌 Daily Message" },
+    { id: "food", label: "🍰 Menu" },
     { id: "game", label: "💖 Game" },
-  ]
+  ];
 
   return (
     <motion.nav
@@ -41,5 +45,5 @@ export default function Navigation({ currentSection, setCurrentSection }: Naviga
         ))}
       </div>
     </motion.nav>
-  )
+  );
 }

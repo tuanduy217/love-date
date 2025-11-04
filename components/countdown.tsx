@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface TimeLeft {
-  days: number
-  hours: number
-  minutes: number
-  seconds: number
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 
 export default function Countdown() {
@@ -16,57 +16,47 @@ export default function Countdown() {
     hours: 0,
     minutes: 0,
     seconds: 0,
-  })
+  });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      // Example: Dinner at 7 PM today
-      const targetDate = new Date()
-      targetDate.setHours(19, 0, 0, 0)
+      // Count elapsed time since 11/10/2025 (dd/mm/yyyy -> 2025-10-11)
+      // If the target is in the future, this will show time remaining until that date.
+      const targetDate = new Date("2025-10-11T00:00:00");
 
-      const now = new Date()
-      const difference = targetDate.getTime() - now.getTime()
+      const now = new Date();
+      // positive -> elapsed since targetDate, negative -> time until targetDate
+      const difference = now.getTime() - targetDate.getTime();
 
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        })
-      }
-    }
+      const absDiff = Math.abs(difference);
 
-    const timer = setInterval(calculateTimeLeft, 1000)
-    calculateTimeLeft()
+      const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((absDiff / 1000 / 60) % 60);
+      const seconds = Math.floor((absDiff / 1000) % 60);
 
-    return () => clearInterval(timer)
-  }, [])
+      // Always set values (use elapsed if difference >= 0, otherwise it's a countdown)
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
 
-  const TimeUnit = ({
-    value,
-    label,
-    index,
-  }: {
-    value: number
-    label: string
-    index: number
-  }) => (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1 * index }}
-      className="flex flex-col items-center"
-    >
-      <motion.div
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        className="bg-gradient-to-br from-primary to-accent rounded-2xl p-8 shadow-lg"
-      >
-        <span className="text-4xl md:text-5xl font-bold text-white">{String(value).padStart(2, "0")}</span>
-      </motion.div>
-      <span className="text-sm md:text-lg font-semibold text-primary mt-4">{label}</span>
-    </motion.div>
-  )
+    const timer = setInterval(calculateTimeLeft, 1000);
+    calculateTimeLeft();
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const TimeUnit = ({ value, label }: { value: number; label: string }) => (
+    <div className="flex flex-col items-center">
+      <div className="bg-gradient-to-br from-primary to-accent rounded-2xl p-8 shadow-lg">
+        <span className="text-4xl md:text-5xl font-bold text-white">
+          {String(value).padStart(2, "0")}
+        </span>
+      </div>
+      <span className="text-sm md:text-lg font-semibold text-primary mt-4">
+        {label}
+      </span>
+    </div>
+  );
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-20 min-h-screen flex flex-col items-center justify-center">
@@ -75,7 +65,7 @@ export default function Countdown() {
         animate={{ opacity: 1, y: 0 }}
         className="text-4xl md:text-5xl font-bold text-center text-primary mb-4"
       >
-        ⏰ Countdown
+        ⏰ Count the days
       </motion.h2>
 
       <motion.p
@@ -84,7 +74,7 @@ export default function Countdown() {
         transition={{ delay: 0.2 }}
         className="text-xl text-primary/70 text-center mb-16"
       >
-        Time until our dinner at 7 PM ❤️
+        Time from first date ❤️
       </motion.p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full">
@@ -102,5 +92,5 @@ export default function Countdown() {
         <span className="text-5xl">💕</span>
       </motion.div>
     </div>
-  )
+  );
 }

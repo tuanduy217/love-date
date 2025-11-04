@@ -1,20 +1,44 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const photos = [
-  { id: 1, title: "Beach Sunset", query: "couple at beach sunset romantic" },
-  { id: 2, title: "Mountain Adventure", query: "couple hiking mountain adventure" },
-  { id: 3, title: "City Lights", query: "couple at night city lights romantic" },
-  { id: 4, title: "Picnic Date", query: "couple picnic park summer" },
-  { id: 5, title: "Stargazing", query: "couple looking at stars night romantic" },
-  { id: 6, title: "Cozy Moments", query: "couple cozy indoors romantic" },
-]
+  {
+    id: 1,
+    // title: "Trung thu Bulum",
+    src: "/images/gallery/1.jpg",
+  },
+  {
+    id: 2,
+    // title: "Mountain Adventure",
+    src: "/images/gallery/2.jpg",
+  },
+  {
+    id: 3,
+    // title: "City Lights",
+    src: "/images/gallery/3.jpg",
+  },
+  {
+    id: 4,
+    // title: "Picnic Date",
+    src: "/images/gallery/4.jpg",
+  },
+  {
+    id: 5,
+    // title: "Stargazing",
+    src: "/images/gallery/5.jpg",
+  },
+  {
+    id: 6,
+    // title: "Cozy Moments",
+    src: "/images/gallery/6.jpg",
+  },
+];
 
 export default function Gallery() {
-  const [selectedId, setSelectedId] = useState<number | null>(null)
-  const selected = photos.find((p) => p.id === selectedId)
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const selected = photos.find((p) => p.id === selectedId);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-20">
@@ -38,7 +62,7 @@ export default function Gallery() {
           >
             <div className="relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
               <img
-                src={`/.jpg?height=256&width=384&query=${photo.query}`}
+                src={photo.src}
                 alt={photo.title}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
@@ -70,19 +94,26 @@ export default function Gallery() {
             >
               <div className="relative h-96">
                 <img
-                  src={`/.jpg?height=384&width=512&query=${selected.query}`}
+                  src={selected.src}
                   alt={selected.title}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="p-6 text-center">
-                <h3 className="text-2xl font-bold text-primary">{selected.title}</h3>
-                <p className="text-muted-foreground mt-2">A precious moment in time ✨</p>
+                <h3 className="text-2xl font-bold text-primary">
+                  {selected.title}
+                </h3>
+                <p className="text-muted-foreground mt-2">
+                  A precious moment in time ✨
+                </p>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+      <div className="flex justify-center text-4xl mt-8">
+        To be continue....
+      </div>
     </div>
-  )
+  );
 }
