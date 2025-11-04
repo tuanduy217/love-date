@@ -40,17 +40,39 @@ const milestones: Milestone[] = [
     image: "/images/first_trip.jpg",
     imageDesc: "Trung thu Bulum 2025 🌎",
   },
+  {
+    date: "November 21, 2025",
+    title: "First Kiss",
+    description: "Under the stars, everything felt perfect.",
+    icon: "💋",
+    image: "/images/first_kiss.jpg",
+    imageDesc: "At the end of first trip 💋🌙",
+  },
+  {
+    date: "Everyday",
+    title: "Said I Love You",
+    description: "Three words that mean everything in the world.",
+    icon: "💕",
+    image: "/images/i_love_u.jpg",
+    imageDesc: "Every 'I love you' deepens our bond 💖",
+  },
+  {
+    date: "Someday Later",
+    title: "Our Forever Story",
+    description:
+      "And every day with you is a blessing I never take for granted.",
+    icon: "💍",
+    image: "/images/forever.jpg",
+    imageDesc: "Looking forward to our forever together 💍❤️",
+  },
 ];
 
 export default function Journey() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const togglePopup = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-20 relative">
+      {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -60,13 +82,13 @@ export default function Journey() {
       </motion.h2>
 
       <div className="relative">
-        {/* Vertical line */}
+        {/* Vertical timeline line */}
         <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-accent to-primary opacity-30" />
 
         <div className="space-y-16">
           {milestones.map((milestone, index) => {
             const isLeft = index % 2 === 0;
-            const isActive = activeIndex === index;
+            const isHovered = hoveredIndex === index;
 
             return (
               <div
@@ -78,8 +100,9 @@ export default function Journey() {
                   {isLeft && (
                     <motion.div
                       whileHover={{ scale: 1.05 }}
-                      onClick={() => togglePopup(index)}
-                      className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 w-[320px] relative z-10 cursor-pointer"
+                      onHoverStart={() => setHoveredIndex(index)}
+                      onHoverEnd={() => setHoveredIndex(null)}
+                      className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 w-[320px] relative z-10"
                     >
                       <p className="text-sm text-accent font-semibold">
                         {milestone.date}
@@ -97,7 +120,8 @@ export default function Journey() {
                 {/* Center icon */}
                 <motion.div
                   whileHover={{ scale: 1.2, rotate: 10 }}
-                  onClick={() => togglePopup(index)}
+                  onHoverStart={() => setHoveredIndex(index)}
+                  onHoverEnd={() => setHoveredIndex(null)}
                   className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-3xl shadow-lg flex-shrink-0 z-20 cursor-pointer"
                 >
                   {milestone.icon}
@@ -108,8 +132,9 @@ export default function Journey() {
                   {!isLeft && (
                     <motion.div
                       whileHover={{ scale: 1.05 }}
-                      onClick={() => togglePopup(index)}
-                      className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 w-[320px] relative z-10 cursor-pointer"
+                      onHoverStart={() => setHoveredIndex(index)}
+                      onHoverEnd={() => setHoveredIndex(null)}
+                      className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 w-[320px] relative z-10"
                     >
                       <p className="text-sm text-accent font-semibold">
                         {milestone.date}
@@ -124,16 +149,18 @@ export default function Journey() {
                   )}
                 </div>
 
-                {/* Popup đối diện */}
+                {/* Popup đối xứng */}
                 <AnimatePresence>
-                  {isActive && milestone.image && (
+                  {isHovered && milestone.image && (
                     <motion.div
                       initial={{ opacity: 0, y: 20, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -20, scale: 0.95 }}
                       transition={{ duration: 0.4 }}
                       className={`absolute top-1/2 -translate-y-1/2 w-[320px] bg-white rounded-xl shadow-2xl overflow-hidden ${
-                        isLeft ? "left-full ml-10" : "right-full mr-10"
+                        isLeft
+                          ? "left-1/2 ml-10" // card trái → popup bên phải
+                          : "right-1/2 mr-10" // card phải → popup bên trái
                       }`}
                     >
                       <motion.img
