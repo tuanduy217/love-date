@@ -42,7 +42,12 @@ export default function LoginPage() {
         })
       );
 
-      router.push("/");
+      if (user.role === "chàng" || user.role === "nàng") {
+        router.push("/");
+      } else if (user.role === "admin") {
+        router.push("/admin");
+      }
+
     } catch {
       setError("Có lỗi xảy ra");
     } finally {
