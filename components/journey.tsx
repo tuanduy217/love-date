@@ -32,7 +32,7 @@ const milestones: Milestone[] = [
     imageDesc: "Hẹn Rooftop☕💫",
   },
   {
-    date: "November 18, 2025",
+    date: "October 18, 2025",
     title: "First Trip",
     description:
       "Exploring new places and creating unforgettable memories together.",
@@ -41,7 +41,7 @@ const milestones: Milestone[] = [
     imageDesc: "Trung thu Bulum 2025 🌎",
   },
   {
-    date: "November 21, 2025",
+    date: "October 21, 2025",
     title: "First Kiss",
     description: "Under the stars, everything felt perfect.",
     icon: "💋",

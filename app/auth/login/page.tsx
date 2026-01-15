@@ -1,11 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function LoginPage() {
@@ -42,12 +48,11 @@ export default function LoginPage() {
         })
       );
 
-      if (user.role === "chàng" || user.role === "nàng") {
+      if (user.role === "chang" || user.role === "nang") {
         router.push("/");
       } else if (user.role === "admin") {
         router.push("/admin");
       }
-
     } catch {
       setError("Có lỗi xảy ra");
     } finally {
@@ -62,7 +67,9 @@ export default function LoginPage() {
           <CardTitle className="text-3xl bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
             Love Date
           </CardTitle>
-          <CardDescription>Đăng nhập để vào thế giới của chúng ta</CardDescription>
+          <CardDescription>
+            Đăng nhập để vào thế giới của chúng ta
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">

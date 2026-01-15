@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import Navigation from "@/components/navigation";
 import Landing from "@/components/landing";
 import Journey from "@/components/journey";
@@ -50,25 +50,8 @@ export default function Home() {
           currentSection={currentSection}
           setCurrentSection={setCurrentSection}
         />
-        
-        {user && (
-          <div className="fixed top-4 right-4 z-50 flex items-center gap-3 bg-white rounded-lg shadow-md p-3">
-            <div className="text-right">
-              <p className="text-sm font-medium">{user.name}</p>
-              <p className="text-xs text-muted-foreground capitalize">
-                {user.role === "chang" ? "Chàng" : user.role === "nang" ? "Nàng" : "Quản trị viên"}
-              </p>
-            </div>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={handleLogout}
-              className="text-xs"
-            >
-              Đăng xuất
-            </Button>
-          </div>
-        )}
+
+        {/*  */}
 
         <main className="pt-20">{renderSection()}</main>
       </div>
