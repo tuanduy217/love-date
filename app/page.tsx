@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Navigation from "@/components/navigation";
 import Landing from "@/components/landing";
 import Journey from "@/components/journey";
@@ -11,35 +10,11 @@ import Game from "@/components/game";
 import FoodPicker from "@/components/menu";
 
 export default function Home() {
-  const [currentSection, setCurrentSection] = useState("landing");
-
-  const renderSection = () => {
-    switch (currentSection) {
-      case "journey":
-        return <Journey />;
-      case "gallery":
-        return <Gallery />;
-      case "countdown":
-        return <Countdown />;
-      case "gift":
-        return <GiftBox />;
-      case "game":
-        return <Game />;
-      case "food":
-        return <FoodPicker />;
-      default:
-        return <Landing setCurrentSection={setCurrentSection} />;
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50">
-      <Navigation
-        currentSection={currentSection}
-        setCurrentSection={setCurrentSection}
-      />
-
-      <main className="pt-20">{renderSection()}</main>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50 flex items-center justify-center">
+      <h1 className="text-2xl font-bold text-center text-gray-700">
+        Chúng tôi yêu nhau xong rồi, trang web sẽ đóng vĩnh viễn
+      </h1>
     </div>
   );
 }
